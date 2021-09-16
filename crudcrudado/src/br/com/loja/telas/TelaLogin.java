@@ -30,7 +30,7 @@ public class TelaLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        usuario = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtlogin = new javax.swing.JTextField();
         btn = new javax.swing.JButton();
@@ -41,8 +41,8 @@ public class TelaLogin extends javax.swing.JFrame {
         setTitle("CRUD - LOGIN");
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Usuário");
+        usuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        usuario.setText("Usuário");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Senha");
@@ -72,7 +72,7 @@ public class TelaLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(usuario)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)))
@@ -94,7 +94,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtlogin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(usuario))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -155,11 +155,11 @@ public class TelaLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JTextField txtlogin;
     private javax.swing.JTextField txtsenha;
+    private javax.swing.JLabel usuario;
     // End of variables declaration//GEN-END:variables
 
     public void loga() {
@@ -173,14 +173,30 @@ public class TelaLogin extends javax.swing.JFrame {
                 rs = pst.executeQuery();
 
                 if (rs.next()) {
-                    Principal home = new Principal();
-                    home.setVisible(true);
+                String perfil = rs.getString(6);                
+                
+                
+                if (perfil.equals("admin")) {
+                    Principal principal = new Principal();
+                    principal.setVisible(true);
+                    principal.jMenu2.setEnabled(true);
+                    Principal.jRadioButtonMenuItem3.setEnabled(true);
+                    principal.usuario.setText(rs.getString(2));
                     this.dispose();
                     conexao.close();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos");
-                }           
-            } catch (Exception e) {  
-            }
+                    Principal principal = new Principal();
+                    principal.setVisible(true);
+                    principal.usuario.setText(rs.getString(2));
+                    this.dispose();
+                    conexao.close();
+                }               
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos");
+            }           
+        } catch (Exception e) {  
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 }
