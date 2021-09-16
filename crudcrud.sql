@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Ago-2021 às 17:23
+-- Tempo de geração: 16-Set-2021 às 17:55
 -- Versão do servidor: 10.4.11-MariaDB
 -- versão do PHP: 7.4.2
 
@@ -61,6 +61,7 @@ CREATE TABLE `ordemservi` (
 
 CREATE TABLE `usuario` (
   `usuarioid` int(11) NOT NULL,
+  `perfil` varchar(30) DEFAULT NULL,
   `user` varchar(50) NOT NULL,
   `login` varchar(15) NOT NULL,
   `senha` varchar(15) NOT NULL,
@@ -71,8 +72,9 @@ CREATE TABLE `usuario` (
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`usuarioid`, `user`, `login`, `senha`, `fone`) VALUES
-(0, 'Adm Principal', 'admin', '1234', '');
+INSERT INTO `usuario` (`usuarioid`, `perfil`, `user`, `login`, `senha`, `fone`) VALUES
+(0, 'admin', 'Adm Principal', 'admin', '1234', ''),
+(2, 'user', 'user01', 'userhihi', 'user1234', '758458796');
 
 --
 -- Índices para tabelas despejadas
